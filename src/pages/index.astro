@@ -1,11 +1,839 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// src/pages/index.astro
+const pageTitle = "GEM | Radically Personal Wellness";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{pageTitle}</title>
+    <meta name="description" content="The world's first wearable with estrogen tracking and fertility insights. Designed for women who lead.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Editorial+New:wght@300;400&family=Inter:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ivory: #fefdfb;
+            --cream: #f9f7f4;
+            --sand: #f0ebe5;
+            --blush: #f5e9e6;
+            --rose: #e8d5d0;
+            --slate: #4a4a4a;
+            --noir: #1a1a1a;
+            --gold: #c9a05f;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--noir);
+            background: var(--ivory);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            font-weight: 300;
+            letter-spacing: 0.01em;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Editorial New', serif;
+            font-weight: 300;
+            letter-spacing: -0.03em;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(254, 253, 251, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 0.25em;
+            color: var(--noir);
+        }
+
+        .nav-cta {
+            padding: 0.6rem 1.8rem;
+            background: var(--noir);
+            color: var(--ivory);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--noir);
+        }
+
+        .nav-cta:hover {
+            background: transparent;
+            color: var(--noir);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 8rem 3rem 4rem;
+            background: linear-gradient(135deg, var(--blush) 0%, var(--ivory) 50%, var(--sand) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(232, 213, 208, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -300px;
+            right: -300px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-30px, 30px); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            animation: fadeIn 1.2s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            margin-bottom: 1.5rem;
+            line-height: 1;
+            color: var(--noir);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            margin-bottom: 4rem;
+            color: var(--slate);
+            line-height: 1.6;
+            font-weight: 300;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .breakthrough-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--gold);
+            color: var(--ivory);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--noir);
+            color: var(--ivory);
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--noir);
+            margin-bottom: 1rem;
+        }
+
+        .hero-cta:hover {
+            background: transparent;
+            color: var(--noir);
+            transform: translateY(-2px);
+        }
+
+        .hero-note {
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: var(--slate);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .product-showcase {
+            padding: 8rem 3rem;
+            background: var(--ivory);
+        }
+
+        .showcase-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .product-visual {
+            position: relative;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--sand) 100%);
+            border-radius: 2px;
+            padding: 4rem;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.1);
+        }
+
+        .ring-visual {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--rose) 0%, var(--gold) 100%);
+            box-shadow: 
+                0 30px 60px rgba(201, 160, 95, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            position: relative;
+            animation: gentleFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        .ring-visual::before {
+            content: '';
+            position: absolute;
+            inset: 35%;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--ivory) 0%, var(--cream) 100%);
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .ring-visual::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 30%;
+            height: 30%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(10px);
+        }
+
+        .product-note {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: var(--slate);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .product-details h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .product-details p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--slate);
+            margin-bottom: 3rem;
+        }
+
+        .cta-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            padding: 1.2rem 2.5rem;
+            background: var(--noir);
+            color: var(--ivory);
+            text-decoration: none;
+            text-align: center;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            border: 1px solid var(--noir);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--noir);
+        }
+
+        .price-tag {
+            font-size: 2rem;
+            font-family: 'Editorial New', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-detail {
+            font-size: 0.85rem;
+            color: var(--slate);
+            margin-bottom: 2rem;
+        }
+
+        .features-section {
+            padding: 10rem 3rem;
+            background: var(--cream);
+        }
+
+        .features-header {
+            max-width: 1400px;
+            margin: 0 auto 6rem;
+            text-align: center;
+        }
+
+        .features-header h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .features-header p {
+            font-size: 1.2rem;
+            color: var(--slate);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background: var(--ivory);
+            padding: 3rem;
+            border-radius: 2px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--blush) 0%, var(--rose) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.8rem;
+            font-family: 'Editorial New', serif;
+            margin-bottom: 1rem;
+            color: var(--noir);
+        }
+
+        .feature-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--slate);
+        }
+
+        .feature-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--blush);
+            color: var(--noir);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 1rem;
+            border-radius: 2px;
+        }
+
+        .specs-section {
+            padding: 8rem 3rem;
+            background: var(--sand);
+        }
+
+        .specs-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .specs-container h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 5rem;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+        }
+
+        .spec {
+            text-align: center;
+        }
+
+        .spec-number {
+            font-size: 3rem;
+            font-family: 'Editorial New', serif;
+            margin-bottom: 0.5rem;
+            color: var(--noir);
+        }
+
+        .spec-label {
+            font-size: 0.85rem;
+            color: var(--slate);
+            letter-spacing: 0.05em;
+        }
+
+        .preorder-section {
+            padding: 12rem 3rem;
+            background: var(--rose);
+            text-align: center;
+        }
+
+        .preorder-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .preorder-content h2 {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .preorder-content p {
+            font-size: 1.2rem;
+            color: var(--slate);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .preorder-price {
+            font-size: 4.5rem;
+            font-family: 'Editorial New', serif;
+            margin: 2rem 0;
+        }
+
+        .preorder-details {
+            font-size: 0.95rem;
+            color: var(--slate);
+            margin-bottom: 3rem;
+        }
+
+        .waitlist-form {
+            display: flex;
+            gap: 0;
+            max-width: 550px;
+            margin: 0 auto;
+            border: 1px solid var(--noir);
+            background: var(--ivory);
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 1.3rem 1.5rem;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--noir);
+            font-weight: 300;
+        }
+
+        .email-input::placeholder {
+            color: var(--slate);
+            opacity: 0.5;
+        }
+
+        .email-input:focus {
+            outline: none;
+        }
+
+        .submit-btn {
+            padding: 1.3rem 2.5rem;
+            background: var(--noir);
+            color: var(--ivory);
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .submit-btn:hover {
+            background: var(--slate);
+        }
+
+        .trust-signals {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            text-align: center;
+        }
+
+        .trust-number {
+            font-size: 2rem;
+            font-family: 'Editorial New', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .trust-label {
+            font-size: 0.85rem;
+            color: var(--slate);
+            letter-spacing: 0.05em;
+        }
+
+        footer {
+            padding: 6rem 3rem 3rem;
+            background: var(--noir);
+            color: var(--ivory);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1rem;
+            letter-spacing: 0.25em;
+            font-weight: 400;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .footer-links a {
+            color: var(--ivory);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 968px) {
+            .nav {
+                padding: 1.5rem 2rem;
+            }
+
+            .hero {
+                padding: 6rem 2rem 3rem;
+            }
+
+            .showcase-container {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .specs-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .trust-signals {
+                gap: 2rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .waitlist-form {
+                flex-direction: column;
+            }
+
+            .cta-group {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="logo">GEM</div>
+        <a href="#preorder" class="nav-cta">Pre-Order</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="breakthrough-badge">World's First Estrogen Tracker</div>
+            <h1>The Future of<br>Women's Health</h1>
+            <p class="hero-subtitle">Revolutionary hormone tracking technology that finally sees you. Estrogen insights through sweat. Fertility tracking through temperature. Designed for every skin tone.</p>
+            <a href="#preorder" class="hero-cta">Pre-Order Now — $349</a>
+            <p class="hero-note">Ships Q2 2025 · Limited First Edition</p>
+        </div>
+    </section>
+
+    <section class="product-showcase">
+        <div class="showcase-container">
+            <div>
+                <div class="product-visual">
+                    <div class="ring-visual"></div>
+                </div>
+                <p class="product-note">Add your product image above</p>
+            </div>
+            
+            <div class="product-details">
+                <h2>Radically<br>Personal<br>Wellness</h2>
+                <p>GEM is the first wearable designed exclusively for female physiology. Track hormones, fertility, and readiness with technology that finally understands your body.</p>
+                
+                <div class="price-tag">$349</div>
+                <p class="price-detail">Includes lifetime software updates</p>
+                
+                <div class="cta-group">
+                    <a href="#preorder" class="btn-primary">Pre-Order Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="features-header">
+            <h2>Built Different</h2>
+            <p>Every feature engineered specifically for women's health. No compromises.</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">◇</div>
+                <h3 class="feature-title">Estrogen Tracking</h3>
+                <p class="feature-description">World-first sweat analysis technology detects estrogen fluctuations in real-time, giving you unprecedented insight into your hormonal patterns and cycle phases.</p>
+                <span class="feature-tag">Breakthrough Tech</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">○</div>
+                <h3 class="feature-title">Basal Body Temperature</h3>
+                <p class="feature-description">Continuous temperature monitoring tracks your fertility window with medical-grade precision. Know your most fertile days without disrupting your sleep.</p>
+                <span class="feature-tag">Fertility Insights</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">✧</div>
+                <h3 class="feature-title">Adaptive LED Technology</h3>
+                <p class="feature-description">Customized LED wavelengths calibrated for all skin tones, from the fairest to the deepest. Accurate readings for every body, finally.</p>
+                <span class="feature-tag">Inclusive Design</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">◐</div>
+                <h3 class="feature-title">Sleep Architecture</h3>
+                <p class="feature-description">Deep sleep analysis that understands how your cycle affects rest. Get personalized recommendations based on your hormonal phase.</p>
+                <span class="feature-tag">Smart Recovery</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">♡</div>
+                <h3 class="feature-title">Heart Rate + HRV</h3>
+                <p class="feature-description">24/7 cardiovascular monitoring with heart rate variability tracking calibrated for female physiology. Understand your stress and recovery patterns.</p>
+                <span class="feature-tag">Core Health</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">◈</div>
+                <h3 class="feature-title">Activity Tracking</h3>
+                <p class="feature-description">Comprehensive fitness monitoring including steps, calories, workouts, and readiness scores that adapt to where you are in your cycle.</p>
+                <span class="feature-tag">Smart Fitness</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="specs-section">
+        <div class="specs-container">
+            <h2>Engineered to Perfection</h2>
+            
+            <div class="specs-grid">
+                <div class="spec">
+                    <div class="spec-number">9 Days</div>
+                    <div class="spec-label">Battery Life</div>
+                </div>
+                <div class="spec">
+                    <div class="spec-number">18g</div>
+                    <div class="spec-label">Featherlight</div>
+                </div>
+                <div class="spec">
+                    <div class="spec-number">100m</div>
+                    <div class="spec-label">Water Resistant</div>
+                </div>
+                <div class="spec">
+                    <div class="spec-number">24/7</div>
+                    <div class="spec-label">Continuous Tracking</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="preorder" class="preorder-section">
+        <div class="preorder-content">
+            <h2>Be Among<br>the First</h2>
+            <p>Join the founding members who are redefining women's health. Limited First Edition pre-orders now open.</p>
+            
+            <div class="preorder-price">$349</div>
+            <p class="preorder-details">Ships Q2 2025 · Includes lifetime software updates · 30-day returns</p>
+            
+            <form class="waitlist-form">
+                <input type="email" class="email-input" placeholder="Enter your email" required>
+                <button type="submit" class="submit-btn">Pre-Order</button>
+            </form>
+
+            <div class="trust-signals">
+                <div class="trust-item">
+                    <div class="trust-number">30-Day</div>
+                    <div class="trust-label">Money Back Guarantee</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">Lifetime</div>
+                    <div class="trust-label">Software Updates</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">2-Year</div>
+                    <div class="trust-label">Warranty</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">GEM</div>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Shipping</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form handling
+        document.querySelectorAll('.waitlist-form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = form.querySelector('.email-input').value;
+                // Add your form submission logic here (Stripe, email collection, etc.)
+                console.log('Pre-order email:', email);
+                alert('You\'re in! Check your email for pre-order details.');
+                form.reset();
+            });
+        });
+
+        // Intersection observer for animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Animate all these elements on scroll
+        document.querySelectorAll('.feature-card, .spec, .product-details, .product-visual, .trust-item, .preorder-content, .features-header').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = 'all 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+
+        // Stagger animation for feature cards
+        document.querySelectorAll('.feature-card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        // Stagger animation for specs
+        document.querySelectorAll('.spec').forEach((spec, index) => {
+            spec.style.transitionDelay = `${index * 0.15}s`;
+        });
+    </script>
+</body>
+</html>
