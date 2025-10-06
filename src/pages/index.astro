@@ -206,53 +206,53 @@ const pageTitle = "GEM | Radically Personal Wellness";
             border-radius: 2px;
             padding: 4rem;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
-        .ring-visual {
+        .product-image {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--rose) 0%, var(--gold) 100%);
-            box-shadow: 
-                0 30px 60px rgba(201, 160, 95, 0.3),
-                inset 0 2px 4px rgba(255, 255, 255, 0.3);
-            position: relative;
+            object-fit: contain;
             animation: gentleFloat 6s ease-in-out infinite;
         }
 
         @keyframes gentleFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(3deg); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
 
-        .ring-visual::before {
-            content: '';
-            position: absolute;
-            inset: 35%;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--ivory) 0%, var(--cream) 100%);
-            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .ring-visual::after {
-            content: '';
-            position: absolute;
-            top: 20%;
-            left: 20%;
-            width: 30%;
-            height: 30%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(10px);
-        }
-
-        .product-note {
-            text-align: center;
+        .color-toggle {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
             margin-top: 2rem;
-            font-size: 0.75rem;
-            color: var(--slate);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
+        }
+
+        .color-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .color-btn.gold {
+            background: linear-gradient(135deg, #d4af37 0%, #c9a05f 100%);
+        }
+
+        .color-btn.silver {
+            background: linear-gradient(135deg, #e8e8e8 0%, #c0c0c0 100%);
+        }
+
+        .color-btn.active {
+            border-color: var(--noir);
+            transform: scale(1.1);
+        }
+
+        .color-btn:hover {
+            transform: scale(1.15);
         }
 
         .product-details h2 {
@@ -422,6 +422,46 @@ const pageTitle = "GEM | Radically Personal Wellness";
             font-size: 0.85rem;
             color: var(--slate);
             letter-spacing: 0.05em;
+        }
+
+        .preorder-section {
+            padding: 12rem 3rem;
+            background: var(--rose);
+            text-align: center;
+        }
+
+        .manifesto-section {
+            padding: 10rem 3rem;
+            background: var(--noir);
+            color: var(--ivory);
+            text-align: center;
+        }
+
+        .manifesto-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .manifesto-content h2 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 3rem;
+            color: var(--ivory);
+            line-height: 1.2;
+        }
+
+        .manifesto-text {
+            font-size: 1.3rem;
+            line-height: 2;
+            color: var(--cream);
+            margin-bottom: 2rem;
+        }
+
+        .manifesto-highlight {
+            font-size: 1.5rem;
+            font-family: 'Editorial New', serif;
+            color: var(--gold);
+            margin: 3rem 0;
+            line-height: 1.6;
         }
 
         .preorder-section {
@@ -621,16 +661,16 @@ const pageTitle = "GEM | Radically Personal Wellness";
 <body>
     <nav class="nav">
         <div class="logo">GEM</div>
-        <a href="#preorder" class="nav-cta">Pre-Order</a>
+        <a href="#preorder" class="nav-cta">Join Waitlist</a>
     </nav>
 
     <section class="hero">
         <div class="hero-content">
-            <div class="breakthrough-badge">World's First Estrogen Tracker</div>
-            <h1>The Future of<br>Women's Health</h1>
-            <p class="hero-subtitle">Revolutionary hormone tracking technology that finally sees you. Estrogen insights through sweat. Fertility tracking through temperature. Designed for every skin tone.</p>
-            <a href="#preorder" class="hero-cta">Pre-Order Now — $349</a>
-            <p class="hero-note">Ships Q2 2025 · Limited First Edition</p>
+            <div class="breakthrough-badge">Built for Women. By Women.</div>
+            <h1>Your Body.<br>Your Data.<br>Your Power.</h1>
+            <p class="hero-subtitle">The first wearable designed for female physiology, not adapted from male-centric technology. Track estrogen, progesterone patterns, and fertility with insights calibrated for YOUR hormonal reality.</p>
+            <a href="#preorder" class="hero-cta">Join Waitlist — Reserve Your Spot</a>
+            <p class="hero-note">Pre-Order $349 · Ships Q2 2025 · Limited First Edition</p>
         </div>
     </section>
 
@@ -638,20 +678,23 @@ const pageTitle = "GEM | Radically Personal Wellness";
         <div class="showcase-container">
             <div>
                 <div class="product-visual">
-                    <div class="ring-visual"></div>
+                    <img src="/images/gold-watch.jpg" alt="GEM Gold Edition" class="product-image" id="productImage">
                 </div>
-                <p class="product-note">Add your product image above</p>
+                <div class="color-toggle">
+                    <button class="color-btn gold active" data-color="gold" data-image="/images/gold-watch.jpg" aria-label="Gold version"></button>
+                    <button class="color-btn silver" data-color="silver" data-image="/images/silver-watch.jpg" aria-label="Silver version"></button>
+                </div>
             </div>
             
             <div class="product-details">
-                <h2>Radically<br>Personal<br>Wellness</h2>
-                <p>GEM is the first wearable designed exclusively for female physiology. Track hormones, fertility, and readiness with technology that finally understands your body.</p>
+                <h2>Finally.<br>A Wearable<br>For Women.</h2>
+                <p>GEM isn't another fitness tracker repurposed for women. It's engineered from the ground up for female physiology. Your hormones. Your cycles. Your data. No more settling for devices designed for men's bodies.</p>
                 
                 <div class="price-tag">$349</div>
-                <p class="price-detail">Includes lifetime software updates</p>
+                <p class="price-detail">Own your health data · Lifetime software updates</p>
                 
                 <div class="cta-group">
-                    <a href="#preorder" class="btn-primary">Pre-Order Now</a>
+                    <a href="#preorder" class="btn-primary">Join Waitlist Now</a>
                 </div>
             </div>
         </div>
@@ -659,51 +702,51 @@ const pageTitle = "GEM | Radically Personal Wellness";
 
     <section class="features-section">
         <div class="features-header">
-            <h2>Built Different</h2>
-            <p>Every feature engineered specifically for women's health. No compromises.</p>
+            <h2>Not Another Male-Centric Device</h2>
+            <p>Every sensor, algorithm, and insight designed specifically for women's hormonal health. Because your body isn't just a smaller version of a man's.</p>
         </div>
         
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">◇</div>
-                <h3 class="feature-title">Estrogen Tracking</h3>
-                <p class="feature-description">World-first sweat analysis technology detects estrogen fluctuations in real-time, giving you unprecedented insight into your hormonal patterns and cycle phases.</p>
-                <span class="feature-tag">Breakthrough Tech</span>
+                <h3 class="feature-title">Estrogen & Progesterone Tracking</h3>
+                <p class="feature-description">World-first sweat analysis technology tracks your actual hormonal fluctuations—estrogen AND progesterone. Not estimated. Not guessed. Measured. Your cycle, your way.</p>
+                <span class="feature-tag">Your Hormones, Tracked</span>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">○</div>
-                <h3 class="feature-title">Basal Body Temperature</h3>
-                <p class="feature-description">Continuous temperature monitoring tracks your fertility window with medical-grade precision. Know your most fertile days without disrupting your sleep.</p>
-                <span class="feature-tag">Fertility Insights</span>
+                <h3 class="feature-title">Real Fertility Insights</h3>
+                <p class="feature-description">Continuous basal body temperature monitoring combined with hormonal data gives you actual fertility insights, not predictions based on men's averages. Know YOUR fertile window.</p>
+                <span class="feature-tag">Your Fertility Data</span>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">✧</div>
-                <h3 class="feature-title">Adaptive LED Technology</h3>
-                <p class="feature-description">Customized LED wavelengths calibrated for all skin tones, from the fairest to the deepest. Accurate readings for every body, finally.</p>
-                <span class="feature-tag">Inclusive Design</span>
+                <h3 class="feature-title">Inclusive LED Technology</h3>
+                <p class="feature-description">Calibrated LED wavelengths for ALL skin tones—from the fairest to the deepest. Because women's health tech should work for ALL women, not just some.</p>
+                <span class="feature-tag">Every Skin Tone</span>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">◐</div>
-                <h3 class="feature-title">Sleep Architecture</h3>
-                <p class="feature-description">Deep sleep analysis that understands how your cycle affects rest. Get personalized recommendations based on your hormonal phase.</p>
-                <span class="feature-tag">Smart Recovery</span>
+                <h3 class="feature-title">Cycle-Aware Sleep Analysis</h3>
+                <p class="feature-description">Sleep tracking that understands how YOUR cycle affects YOUR rest. Get recommendations based on your hormonal phase, not generic male sleep patterns.</p>
+                <span class="feature-tag">Your Sleep Patterns</span>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">♡</div>
-                <h3 class="feature-title">Heart Rate + HRV</h3>
-                <p class="feature-description">24/7 cardiovascular monitoring with heart rate variability tracking calibrated for female physiology. Understand your stress and recovery patterns.</p>
-                <span class="feature-tag">Core Health</span>
+                <h3 class="feature-title">Female-Calibrated Heart Health</h3>
+                <p class="feature-description">Heart rate and HRV monitoring calibrated for female physiology. Because women's cardiovascular health is different. Period.</p>
+                <span class="feature-tag">Your Heart Data</span>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">◈</div>
-                <h3 class="feature-title">Activity Tracking</h3>
-                <p class="feature-description">Comprehensive fitness monitoring including steps, calories, workouts, and readiness scores that adapt to where you are in your cycle.</p>
-                <span class="feature-tag">Smart Fitness</span>
+                <h3 class="feature-title">Hormone-Adaptive Fitness</h3>
+                <p class="feature-description">Activity tracking that adapts to where you are in your cycle. Your readiness scores reflect YOUR hormonal reality, not one-size-fits-all male metrics.</p>
+                <span class="feature-tag">Your Fitness Journey</span>
             </div>
         </div>
     </section>
@@ -735,15 +778,15 @@ const pageTitle = "GEM | Radically Personal Wellness";
 
     <section id="preorder" class="preorder-section">
         <div class="preorder-content">
-            <h2>Be Among<br>the First</h2>
-            <p>Join the founding members who are redefining women's health. Limited First Edition pre-orders now open.</p>
+            <h2>Own Your<br>Health Data</h2>
+            <p>Join the women who refuse to settle for male-centric health tech. Reserve your spot for exclusive pre-order access and take control of YOUR hormonal insights.</p>
             
             <div class="preorder-price">$349</div>
-            <p class="preorder-details">Ships Q2 2025 · Includes lifetime software updates · 30-day returns</p>
+            <p class="preorder-details">Pre-Order Price · Ships Q2 2025 · Your data stays yours · 30-day returns</p>
             
             <form class="waitlist-form">
-                <input type="email" class="email-input" placeholder="Enter your email" required>
-                <button type="submit" class="submit-btn">Pre-Order</button>
+                <input type="email" class="email-input" placeholder="Enter your email to join waitlist" required>
+                <button type="submit" class="submit-btn">Join Waitlist</button>
             </form>
 
             <div class="trust-signals">
@@ -776,6 +819,23 @@ const pageTitle = "GEM | Radically Personal Wellness";
     </footer>
 
     <script>
+        // Color toggle for product images
+        const colorBtns = document.querySelectorAll('.color-btn');
+        const productImage = document.getElementById('productImage');
+        
+        colorBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const imagePath = btn.dataset.image;
+                
+                // Update active state
+                colorBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Update product image
+                productImage.src = imagePath;
+            });
+        });
+
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -795,9 +855,9 @@ const pageTitle = "GEM | Radically Personal Wellness";
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const email = form.querySelector('.email-input').value;
-                // Add your form submission logic here (Stripe, email collection, etc.)
-                console.log('Pre-order email:', email);
-                alert('You\'re in! Check your email for pre-order details.');
+                // Add your form submission logic here (email collection service, etc.)
+                console.log('Waitlist email:', email);
+                alert('You\'re on the list! Check your email for exclusive pre-order access.');
                 form.reset();
             });
         });
