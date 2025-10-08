@@ -661,7 +661,8 @@ const pageTitle = "GEM | Radically Personal Wellness";
 <body>
     <nav class="nav">
         <div class="logo">GEM</div>
-        <a href="#preorder" class="nav-cta">Join Waitlist</a>
+        <a href="#preorder" class="btn-primary">Preorder Now</a>
+
     </nav>
 
     <section class="hero">
@@ -669,7 +670,7 @@ const pageTitle = "GEM | Radically Personal Wellness";
             <div class="breakthrough-badge">Built for Women. By Women.</div>
             <h1>Your Body.<br>Your Data.<br>Your Power.</h1>
             <p class="hero-subtitle">The first wearable designed for female physiology, not adapted from male-centric technology. Track estrogen, progesterone patterns, and fertility with insights calibrated for YOUR hormonal reality.</p>
-            <a href="#preorder" class="hero-cta">Join Waitlist — Reserve Your Spot</a>
+            <a href="#preorder" class="hero-cta">Preorder Now — Reserve Your Spot</a>
             <p class="hero-note">Pre-Order $349 · Ships Q2 2025 · Limited First Edition</p>
         </div>
     </section>
@@ -694,7 +695,8 @@ const pageTitle = "GEM | Radically Personal Wellness";
                 <p class="price-detail">Own your health data · Lifetime software updates</p>
                 
                 <div class="cta-group">
-                    <a href="#preorder" class="btn-primary">Join Waitlist Now</a>
+                    <a href="#preorder" class="btn-primary">Preorder Now</a>
+
                 </div>
             </div>
         </div>
@@ -784,10 +786,33 @@ const pageTitle = "GEM | Radically Personal Wellness";
             <div class="preorder-price">$349</div>
             <p class="preorder-details">Pre-Order Price · Ships Q2 2025 · Your data stays yours · 30-day returns</p>
             
-            <form class="waitlist-form">
-                <input type="email" class="email-input" placeholder="Enter your email to join waitlist" required>
-                <button type="submit" class="submit-btn">Join Waitlist</button>
+            <form class="waitlist-form" name="preorder" method="POST" data-netlify="true">
+                <input type="hidden" name="form-name" value="preorder">
+
+                <div style="display:flex; flex-direction:column; gap:1rem; width:100%;">
+                    <input type="email" name="email" class="email-input" placeholder="Enter your email to preorder" required>
+
+                    <div style="display:flex; justify-content:center; gap:1rem; margin:1rem 0;">
+                        <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                            <input type="radio" name="finish" value="Gold" required checked>
+                            <span style="background:linear-gradient(135deg,#d4af37 0%,#c9a05f 100%);
+                                        width:25px;height:25px;border-radius:50%;display:inline-block;"></span>
+                            Gold Finish
+                        </label>
+
+                        <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                            <input type="radio" name="finish" value="Silver">
+                            <span style="background:linear-gradient(135deg,#e8e8e8 0%,#c0c0c0 100%);
+                                        width:25px;height:25px;border-radius:50%;display:inline-block;"></span>
+                            Silver Finish
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Preorder Now</button>
+                </div>
             </form>
+
+
 
             <div class="trust-signals">
                 <div class="trust-item">
@@ -854,13 +879,13 @@ const pageTitle = "GEM | Radically Personal Wellness";
         document.querySelectorAll('.waitlist-form').forEach(form => {
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const email = form.querySelector('.email-input').value;
-                // Add your form submission logic here (email collection service, etc.)
-                console.log('Waitlist email:', email);
-                alert('You\'re on the list! Check your email for exclusive pre-order access.');
-                form.reset();
+                const finish = form.querySelector('input[name="finish"]:checked')?.value;
+                alert(`You’ve reserved your GEM (${finish} finish)! Check your email for preorder confirmation.`);
+                form.submit(); // continue normal submission to Netlify
             });
         });
+
+
 
         // Intersection observer for animations
         const observerOptions = {
