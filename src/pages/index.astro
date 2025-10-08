@@ -8,6 +8,11 @@ const pageTitle = "GEM | Radically Personal Wellness";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fefdfb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="mobile-web-app-capable" content="yes">
+
     <title>{pageTitle}</title>
     <meta name="description" content="The world's first wearable with estrogen tracking and fertility insights. Designed for women who lead.">
     <style>
@@ -609,7 +614,63 @@ const pageTitle = "GEM | Radically Personal Wellness";
             opacity: 1;
         }
 
-        @media (max-width: 968px) {
+        
+        @media (max-width: 600px) {
+            .hero {
+                padding: 5rem 1.5rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: clamp(2.2rem, 8vw, 3.2rem);
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .showcase-container,
+            .features-grid,
+            .specs-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-cta, .btn-primary, .hero-cta {
+                width: 100%;
+                text-align: center;
+            }
+
+            .waitlist-form {
+                flex-direction: column;
+            }
+
+            .submit-btn {
+                width: 100%;
+            }
+
+            .product-visual {
+                padding: 2rem;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+
+            .manifesto-text {
+                font-size: 1.1rem;
+            }
+
+            .footer-links {
+                gap: 0.5rem;
+            }
+            
+
+
             .nav {
                 padding: 1.5rem 2rem;
             }
